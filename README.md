@@ -1,6 +1,8 @@
 # Example application to learn how to authenticate users in sails
 Simple Nodejs + Sailsjs application that allows to post messages to authenticated users.
 
+![Build Status](https://travis-ci.org/rsibanez89/simple-user-auth-sails.svg?branch=master)
+
 ## Runing the example
 1. Clon the repository
 
