@@ -137,5 +137,65 @@ Then, wrap all the contet of the "view/homepage.ejs" inside the following HTML c
 
 Now we can login and if we go to the **homepage** we will see that we are authenticated.
 
+### Create the logic for posting messages
 
+1. Follow the steps describing here [posting messages](https://github.com/rsibanez89/simple-post-messages-sails#posting-messages) but don't modify the "view/homepage.ejs"
+
+2. Now, modify the "view/homepage.ejs" to show stored messages and the post form instead of showing the message "Authenticated User".
+
+	```html
+	<% if(session.authenticated) { %>
+		// MODIFY THIS SECTION
+	<% } else { %>
+		// CONTENT
+	<% } %>
+	```
+
+3. Now, modify the "api/controllers/MessageController.js". The variable **req.user** contain the logged user.
+
+	```js
+	create: function(req, res){
+		console.log("MessageController.create  was called");
+		var messagesJSON = {
+			author: req.user.username,
+			email: req.user.email,
+			content: req.param('content'),
+		}
+
+		Message.create(messagesJSON, function(err, message) {
+			if (err) {
+				console.log(err);
+			}
+			return res.redirect('homepage');
+		});
+	},
+
+	destroy: function  (req, res, next) {
+    console.log("MessageController.destroy  was called");
+		Message.findOne(req.param('id')).exec(function (err, message){
+  			if (err) {
+    			console.log(err);
+  			}
+			if (message.email != req.user.email) {
+					return res.status(403).json({ error: 'You can remove just your own messages '});
+			}
+			Message.destroy(req.param('id'), function(err) {
+				if(err){
+					console.log(err);
+				}
+				res.redirect('homepage');
+			});
+		});
+	}
+	```
+
+4. Now, modify the "config/policies.js" to allow just autenticated users to post and remove messages.
+
+	```js
+	'*': ['passport'],
+
+	MessageController: {
+	'*': ['passport', 'sessionAuth'],
+	}
+	```
 

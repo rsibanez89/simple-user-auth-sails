@@ -1,5 +1,40 @@
 <% if(session.authenticated) { %>
-  <h1> Authenticated User </h1>
+  <div id="messages">
+    <h1>All my messages</h1>
+
+    <table>
+      <th>Name</th>
+      <th>Message</th>
+      <th>Delete</th>
+      <% _.each(messages, function(message) { %>
+        <tr>
+          <td><%=message.author%></td>
+          <td><%=message.content%></td>
+          <td>
+            <form action="/message/destroy/<%=message.id%>" method="post">
+              <button type="submit" class="button"/>Delete</button>
+            </form>
+          </td>
+        </tr>
+        <%})%>
+      </table>
+
+  </div>
+
+  <div id="newMessage">
+    <h1>Add a new message</h1>
+
+    <form action="/message" method="post">
+
+      <div class="field-wrap">
+        <label>Message <span class="req">* </span></label>
+        <textarea name="content" required>Enter text here...</textarea>
+      </div>
+
+      <button type="submit" class="button"/>Post</button>
+
+    </form>
+  </div>
 <% } else { %>
 
   <div id="registerNewUser">
