@@ -1,6 +1,21 @@
 # Example application to learn how to authenticate users in sails
 Simple Nodejs + Sailsjs application that allows to post messages to authenticated users.
 
+## Runing the example
+1. Clon the repository
+
+2. Install the project dependencies
+
+	```sh
+	$ cd simple-user-auth-sails
+	$ npm install
+	```
+3. Start the app
+
+	```sh
+	$ sails lift
+	```
+
 ## Doing it yourself
 ### Setting up the environment
 1. Install nodejs (https://nodejs.org/)
@@ -52,8 +67,11 @@ We can check the console and see that **marlinspike** is loading Models, Control
 
 For example, if we go to http://localhost:1337/user	we have a user controller. We can create, delete, update users.
 That controller is defined in \node_modules\sails-auth\api\controllers
+In older version of **sails-auth**, there used to be a **generator** instead of **marlinspike**. 
+The **generator** used to copy all the necesary files in our project but now if we need to change something we have to override the original methods.
 
-3. Remove all the content form the "view/homepage.ejs", we are not going to need it. Add the following HTML code.
+### Creating users
+1. Remove all the content form the "view/homepage.ejs", we are not going to need it. Add the following HTML code.
 
 	```html
 	<div id="registerNewUser">
@@ -81,7 +99,7 @@ That controller is defined in \node_modules\sails-auth\api\controllers
 	</div>
 	```
 	
-4. Start the app and go to http://localhost:1337/ to create new users.
+2. Start the app and go to http://localhost:1337/ to create new users.
 
 ### Authenticating users
 1. Modify the "view/homepage.ejs" to allow users to login. Add the following HTML code.
@@ -92,7 +110,7 @@ That controller is defined in \node_modules\sails-auth\api\controllers
 
 	  <form action="/auth/local" method="post">
 		<div class="field-wrap">
-		  <label>Username or email <span class="req">* </span></label>
+		  <label>Email <span class="req">* </span></label>
 		  <input name="identifier" type="text" required />
 		</div>
 
@@ -107,7 +125,7 @@ That controller is defined in \node_modules\sails-auth\api\controllers
 	</div>
 	```
 
-And wrap all the contet of the "view/homepage.ejs" with the following HTML code.
+Then, wrap all the contet of the "view/homepage.ejs" inside the following HTML code.
 
 	```html
 	<% if(session.authenticated) { %>
@@ -116,4 +134,5 @@ And wrap all the contet of the "view/homepage.ejs" with the following HTML code.
 		// CONTENT
 	<% } %>
 	```
-	
+
+Now we can login and if we go to the **homepage** we will see that we are authenticated.	
