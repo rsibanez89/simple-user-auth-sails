@@ -127,21 +127,19 @@ The **generator** used to copy all the necesary files in our project but now if 
 
 Then, wrap all the contet of the "view/homepage.ejs" inside the following HTML code.
 
-	```html
 	<% if(session.authenticated) { %>
 		<h1> Authenticated User </h1>
 	<% } else { %>
 		// CONTENT
 	<% } %>
-	```
 
 Now we can login and if we go to the **homepage** we will see that we are authenticated.
 
 ### Create the logic for posting messages
 
-1. Follow the steps describing here [posting messages](https://github.com/rsibanez89/simple-post-messages-sails#posting-messages) but don't modify the "view/homepage.ejs"
+1. Follow the steps described in [posting messages](https://github.com/rsibanez89/simple-post-messages-sails#posting-messages) but don't modify the "view/homepage.ejs"
 
-2. Now, modify the "view/homepage.ejs" to show stored messages and the post form instead of showing the message "Authenticated User".
+2. Now, modify the "view/homepage.ejs" to show the stored messages and the post form instead of showing the message "Authenticated User".
 
 	```html
 	<% if(session.authenticated) { %>
