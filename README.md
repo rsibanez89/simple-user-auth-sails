@@ -42,7 +42,7 @@ Nothing new, that is the staring guide from sails (http://sailsjs.org/get-starte
 
 We can check the console and see that **marlinspike** is loading Models, Controllers and Policies that we didn't create.
 
-	```sh
+	```
 	...
 	debug: marlinspike (auth): loading Models...
 	debug: marlinspike (auth): loading Controllers...
@@ -56,7 +56,7 @@ That controller is defined in \node_modules\sails-auth\api\controllers
 3. Remove all the content form the "view/homepage.ejs", we are not going to need it. Add the following HTML code.
 
 	```html
-	<div id="newUser">
+	<div id="registerNewUser">
 	  <h1>Register</h1>
 
 	  <form action="/user" method="post">
@@ -82,3 +82,38 @@ That controller is defined in \node_modules\sails-auth\api\controllers
 	```
 	
 4. Start the app and go to http://localhost:1337/ to create new users.
+
+### Authenticating users
+1. Modify the "view/homepage.ejs" to allow users to login. Add the following HTML code.
+
+	```html
+	<div id="loginUser">
+	  <h1>Login</h1>
+
+	  <form action="/auth/local" method="post">
+		<div class="field-wrap">
+		  <label>Username or email <span class="req">* </span></label>
+		  <input name="identifier" type="text" required />
+		</div>
+
+		<div class="field-wrap">
+		  <label>Password <span class="req">* </span></label>
+		  <input name="password" type="password">
+		</div>
+
+		<button type="submit" class="button"/>Login</button>
+	  </form>
+
+	</div>
+	```
+
+And wrap all the contet of the "view/homepage.ejs" with the following HTML code.
+
+	```html
+	<% if(session.authenticated) { %>
+		<h1> Authenticated User </h1>
+	<% } else { %>
+		// CONTENT
+	<% } %>
+	```
+	

@@ -1,23 +1,47 @@
-<div id="newUser">
-  <h1>Register</h1>
+<% if(session.authenticated) { %>
+  <h1> Authenticated User </h1>
+<% } else { %>
 
-  <form action="/user" method="post">
-    <div class="field-wrap">
-      <label>Username <span class="req">* </span></label>
-      <input name="username" type="text" required />
-    </div>
+  <div id="registerNewUser">
+    <h1>Register</h1>
 
-    <div class="field-wrap">
-      <label>Email Address <span class="req">* </span></label>
-      <input name="email" type="email" required />
-    </div>
+    <form action="/user" method="post">
+      <div class="field-wrap">
+        <label>Username <span class="req">* </span></label>
+        <input name="username" type="text" required />
+      </div>
 
-    <div class="field-wrap">
-      <label>Password <span class="req">* </span></label>
-      <input name="password" type="password">
-    </div>
+      <div class="field-wrap">
+        <label>Email Address <span class="req">* </span></label>
+        <input name="email" type="email" required />
+      </div>
 
-    <button type="submit" class="button"/>Register</button>
-  </form>
+      <div class="field-wrap">
+        <label>Password <span class="req">* </span></label>
+        <input name="password" type="password">
+      </div>
 
-</div>
+      <button type="submit" class="button"/>Register</button>
+    </form>
+
+  </div>
+
+  <div id="loginUser">
+    <h1>Login</h1>
+
+    <form action="/auth/local" method="post">
+      <div class="field-wrap">
+        <label>Username or email <span class="req">* </span></label>
+        <input name="identifier" type="email" required />
+      </div>
+
+      <div class="field-wrap">
+        <label>Password <span class="req">* </span></label>
+        <input name="password" type="password">
+      </div>
+
+      <button type="submit" class="button"/>Login</button>
+    </form>
+
+  </div>
+<% } %>
