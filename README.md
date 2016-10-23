@@ -57,19 +57,17 @@ Nothing new, that is the staring guide from sails (http://sailsjs.org/get-starte
 	$ sails lift
 	```
 
-We can check the console and see that **marlinspike** is loading Models, Controllers and Policies that we didn't create.
+We can check the console output and see that **marlinspike** is loading Models, Controllers and Policies that we didn't create.
 
-	```
 	...
 	debug: marlinspike (auth): loading Models...
 	debug: marlinspike (auth): loading Controllers...
 	debug: marlinspike (auth): loading Policies...
 	...
-	```
 
 For example, if we go to http://localhost:1337/user	we have a user controller. We can create, delete, update users.
 That controller is defined in \node_modules\sails-auth\api\controllers
-In older version of **sails-auth**, there used to be a **generator** instead of **marlinspike**. 
+In older version of **sails-auth**, there used to be a **generator** instead of **marlinspike**.
 The **generator** used to copy all the necesary files in our project but now if we need to change something we have to override the original methods.
 
 ### Creating users
@@ -137,4 +135,7 @@ Then, wrap all the contet of the "view/homepage.ejs" inside the following HTML c
 	<% } %>
 	```
 
-Now we can login and if we go to the **homepage** we will see that we are authenticated.	
+Now we can login and if we go to the **homepage** we will see that we are authenticated.
+
+
+
