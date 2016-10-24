@@ -1,4 +1,4 @@
-# Example application to learn how to authenticate users in sails
+# Example application to learn how to authenticate users in sails by using sails-auth
 Simple Nodejs + Sailsjs application that allows to post messages to authenticated users.
 
 ![Build Status](https://travis-ci.org/rsibanez89/simple-user-auth-sails.svg?branch=master)
@@ -66,8 +66,11 @@ We can check the console output and see that **marlinspike** is loading Models, 
 	...
 
 For example, if we go to http://localhost:1337/user	we have a user controller. We can create, delete, update users.
-That controller is defined in \node_modules\sails-auth\api\controllers
+
+That controller is defined in "/node_modules/sails-auth/api/controllers/"
+
 In older version of **sails-auth**, there used to be a **generator** instead of **marlinspike**.
+
 The **generator** used to copy all the necesary files in our project but now if we need to change something we have to override the original methods.
 
 ### Creating users
@@ -135,7 +138,7 @@ Then, wrap all the contet of the "view/homepage.ejs" inside the following HTML c
 
 Now we can login and if we go to the **homepage** we will see that we are authenticated.
 
-### Create the logic for posting messages
+### Creating the logic for posting messages
 
 1. Follow the steps described in [posting messages](https://github.com/rsibanez89/simple-post-messages-sails#posting-messages) but don't modify the "view/homepage.ejs"
 
@@ -169,7 +172,7 @@ Now we can login and if we go to the **homepage** we will see that we are authen
 	},
 
 	destroy: function  (req, res, next) {
-    console.log("MessageController.destroy  was called");
+		console.log("MessageController.destroy  was called");
 		Message.findOne(req.param('id')).exec(function (err, message){
   			if (err) {
     			console.log(err);
@@ -197,3 +200,57 @@ Now we can login and if we go to the **homepage** we will see that we are authen
 	}
 	```
 
+### Redirecting after registering and loging users
+1. For redirectic after login modify the "view/homepage.ejs". Change the action of the login form.
+
+	```html
+	<form action="/auth/local?next=/" method="post">
+	```
+
+Now, for redirectic after registering we have to override the **UserController** defined by sails-auth.
+
+1. Create the **UserController** controller
+
+	```sh
+	$ sails generate controller user
+	```
+	
+2. Remove all the content of the "api/controllers/UserController.js" and put the following code.
+
+	```js
+	var _ = require('lodash');
+	var _super = require('sails-auth/api/controllers/UserController');
+
+	_.merge(exports, _super);
+	_.merge(exports, {
+
+		// Extend with custom logic here by adding additional fields, methods, etc.
+
+		create: function (req, res, next) {
+			console.log("UserController.create  was called");
+
+			// the register method is defined in sails-auth/services/protocols/local.js
+			sails.services.passport.protocols.local.register(req.body, function (err, user) {
+			  if (err)
+				return res.negotiate(err);
+
+			  return res.view('homepage',
+					  {
+						  'registerd': user.username
+					  });
+			});
+
+		},
+
+	});
+	```
+
+Now we have overriden the **create** method defined in "/node_modules/sails-auth/api/controllers/UserController.js".
+
+3. Install **lodash**
+
+	```sh
+	$ npm install lodash --save
+	```
+	
+4. Finally modify the "view/homepage.ejs" to show the registerd user after the registration.

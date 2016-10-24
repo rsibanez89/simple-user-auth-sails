@@ -37,34 +37,37 @@
   </div>
 <% } else { %>
 
-  <div id="registerNewUser">
-    <h1>Register</h1>
+  <% if(typeof registerd != 'undefined') { %>
+    <h1>Registration OK! <%=registerd%></h1>
+  <% } else { %>
+    <div id="registerNewUser">
+      <h1>Register</h1>
 
-    <form action="/user" method="post">
-      <div class="field-wrap">
-        <label>Username <span class="req">* </span></label>
-        <input name="username" type="text" required />
-      </div>
+      <form action="/user" method="post">
+        <div class="field-wrap">
+          <label>Username <span class="req">* </span></label>
+          <input name="username" type="text" required />
+        </div>
 
-      <div class="field-wrap">
-        <label>Email Address <span class="req">* </span></label>
-        <input name="email" type="email" required />
-      </div>
+        <div class="field-wrap">
+          <label>Email Address <span class="req">* </span></label>
+          <input name="email" type="email" required />
+        </div>
 
-      <div class="field-wrap">
-        <label>Password <span class="req">* </span></label>
-        <input name="password" type="password">
-      </div>
+        <div class="field-wrap">
+          <label>Password <span class="req">* </span></label>
+          <input name="password" type="password">
+        </div>
 
-      <button type="submit" class="button"/>Register</button>
-    </form>
-
-  </div>
+        <button type="submit" class="button"/>Register</button>
+      </form>
+    </div>
+  <% } %>  
 
   <div id="loginUser">
     <h1>Login</h1>
 
-    <form action="/auth/local" method="post">
+    <form action="/auth/local?next=/" method="post">
       <div class="field-wrap">
         <label>Email <span class="req">* </span></label>
         <input name="identifier" type="email" required />
