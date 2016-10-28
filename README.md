@@ -199,6 +199,8 @@ Now we can login and if we go to the **homepage** we will see that we are authen
 	'*': ['passport', 'sessionAuth'],
 	}
 	```
+	
+Note that the destroy method in "api/controllers/MessageController.js" check if the user is the owner of the message. We could put that check in a separate policie "isOwner".
 
 ### Redirecting after registering and loging users
 1. For redirectic after login modify the "view/homepage.ejs". Change the action of the login form.
@@ -254,3 +256,26 @@ Now we have overriden the **create** method defined in "/node_modules/sails-auth
 	```
 	
 4. Finally modify the "view/homepage.ejs" to show the registerd user after the registration.
+
+Note that we didn't create a policie for **UserController**, i.e. If we do a **PUT** to any user it will work.
+
+	```
+	PUT http://localhost:1337/user/1
+	```
+	
+	```
+	{
+		"email":"rodrigo2@ibanez.com",
+		"password":"1234asd"
+	}
+	```
+
+Just to avoid updating user, we modify the "config/policies.js"
+
+	```js
+	UserController: {
+		'update': false,
+	}
+	```
+
+Now we can't update any user.

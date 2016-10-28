@@ -29,6 +29,10 @@ module.exports.policies = {
 
   MessageController: {
     '*': ['passport', 'sessionAuth'],
+  },
+
+  UserController: {
+    'update': false,
   }
 
   /***************************************************************************
