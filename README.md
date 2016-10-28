@@ -279,3 +279,7 @@ Just to avoid updating user, we modify the "config/policies.js"
 	```
 
 Now we can't update any user.
+
+### Creating a One to Many Relationship
+
+![Here](https://github.com/rsibanez89/simple-user-rights-sails/tree/2c40affe128ef79c59fdd974ff770c7502d8a54c) is the same code, with some fixes.
