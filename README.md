@@ -80,7 +80,7 @@ The **generator** used to copy all the necesary files in our project but now if 
 	<div id="registerNewUser">
 	  <h1>Register</h1>
 
-	  <form action="/user" method="post">
+	  <form action="/register" method="post">
 		<div class="field-wrap">
 		  <label>Username <span class="req">* </span></label>
 		  <input name="username" type="text" required />
